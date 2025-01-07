@@ -1,2 +1,0 @@
-# ReactJs
-React learning process

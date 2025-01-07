@@ -1,1 +1,0 @@
-Create first static web page in react
