@@ -1,0 +1,25 @@
+export enum alertType
+{
+    primary = "primary",
+    secondary ="secondary" ,
+    success ="success" ,
+    danger = "danger",
+    warning ="warning" ,
+    info = "info",
+    light = "light",
+    dark = "dark"
+}
+
+type alertProps = {
+    text:string,
+    type:alertType
+}
+export default function Alert({text,type}:alertProps) {
+   // console.log(`alert alert-${alertType[type]}`)
+  return (
+
+    <div className={`alert alert-${alertType[type]}`} role="alert">
+        {text}
+    </div>
+  )
+}
