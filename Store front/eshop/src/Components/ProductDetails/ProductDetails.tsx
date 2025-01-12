@@ -3,7 +3,6 @@ import { cartItem, product, productVariations } from "../../Utils/Types"
 import { FetchData } from "../../Utils/Helpers"
 import { env } from "../../Utils/env"
 import Alert, { alertType } from "../UI/Alert/Alert"
-import { useErrorBoundary } from "react-error-boundary";
 import { ChangeEvent, useContext, useEffect, useRef, useState } from "react"
 import ReactImageGallery from "react-image-gallery"
 import ReductionBox from "../UI/Product/ReductionBox"
@@ -35,7 +34,6 @@ const INIT_QTE = 1
 export default function ProductDetails({ slug }: ProductDetailsProps) {
 
   const navigate = useNavigate()
-  const { showBoundary } = useErrorBoundary();
 
   useEffect(() => {
     window.scrollTo(0, 0)

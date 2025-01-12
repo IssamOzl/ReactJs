@@ -1,6 +1,4 @@
-import { ErrorBoundary } from "react-error-boundary";
 import LatestProducts from "../Components/LatestProducts/LatestProducts";
-import ErrorBoundaryFallback from "../Components/ErrorBoundaryFallback/ErrorBoundback";
 
 interface HomeProps {
   isLost: boolean
