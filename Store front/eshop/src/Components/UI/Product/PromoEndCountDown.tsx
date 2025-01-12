@@ -3,12 +3,12 @@ import Countdown, { CountdownRenderProps } from 'react-countdown';
 interface PromoEndCountDownPropos {
     endDate: Date
 }
-interface renderProps {
-    hours: number,
-    minutes: number,
-    seconds: number,
-    completed: boolean
-}
+// interface renderProps {
+//     hours: number,
+//     minutes: number,
+//     seconds: number,
+//     completed: boolean
+// }
 
 const timerComponentsStyle = {
     width: "50px",

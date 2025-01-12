@@ -1,5 +1,5 @@
 import { cartItem, order_product } from "../Utils/Types" 
-import useLocalStorage from "./UseLocalStorage"
+import useLocalStorage from "./useLocalStorage"
 
 export function UseCart() {
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { product } from '../../Utils/Types';
 import { env } from '../../Utils/env';
 

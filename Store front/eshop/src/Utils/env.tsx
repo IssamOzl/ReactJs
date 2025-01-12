@@ -15,7 +15,9 @@ const envSchema = z.object({
     "VITE_PARAMS_LS":z.string(), 
     "VITE_ROUTE_SHIPPING_CITY_DETAILS":z.string(),
     "VITE_ROUTE_SHIPPING_CITIES_ACTIVE":z.string(),
-    "VITE_ROUTE_ORDER_PLACE":z.string()
+    "VITE_ROUTE_ORDER_PLACE":z.string(),
+    "VITE_DEFAULT_SITE_NAME":z.string(),
+
 }) 
 
 // we used .parse in lace of safeParse to leunch an error if som param needed

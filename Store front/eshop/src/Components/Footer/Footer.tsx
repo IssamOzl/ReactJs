@@ -1,5 +1,5 @@
-import { memo, useEffect, useState } from "react"
-import useLocalStorage from "../../Hooks/UseLocalStorage"
+import { memo, useState } from "react"
+import useLocalStorage from "../../Hooks/useLocalStorage"
 import { env } from "../../Utils/env"
 import { params } from "../../Utils/Types"
 import { useQuery } from "@tanstack/react-query"
@@ -7,7 +7,6 @@ import { FetchData } from "../../Utils/Helpers"
 import { Link } from "react-router-dom"
 
 function Footer() {
-
     const [show, setShow] = useState(false)
     const cssBlock = {
         display: "block"
@@ -15,7 +14,6 @@ function Footer() {
     const cssNone = {
         display: "none"
     }
-
     let siteParams: params | undefined = undefined
 
     const { setValue, getValue } = useLocalStorage()
@@ -42,11 +40,6 @@ function Footer() {
 
     }
 
-
-    console.log("siteParams", siteParams);
-
-
-
     return (
         <>
             <div className="col-contact-us" id="cont">
@@ -63,8 +56,7 @@ function Footer() {
             <div className="footer">
                 <p style={{textAlign:"center",marginTop:"30px"}}>
                     <Link to="/">
-                    <img src={`${env.VITE_IMAGES_FOLDER}${siteParams?.logo_link.replace("black","white")}`}  style={{maxWidth:"250px"}} />
-
+                        <img src={`${env.VITE_IMAGES_FOLDER}${siteParams?.logo_link.replace("black","white")}`}  style={{maxWidth:"250px"}} />
                     </Link>
                 </p>
                 <ul className="social-icons text-center icons-design-default icons-size-default social-share " style={{listStyleType: "none",width: "auto"}}>
@@ -75,9 +67,9 @@ function Footer() {
 
                 <p style={{textAlign:"center",marginTop:"15px"}}>
                     <ul className="social-icons text-center icons-design-default icons-size-default social-share " style={{listStyleType: "none",width: "auto"}}>
-                        <li className="social"><a rel="nofollow noopener noreferrer" href="conditions-generales-de-vente.php" target="_blank" className="footer-link">Conditions Générales de Vente</a></li>
-                        <li className="social"><a rel="nofollow noopener noreferrer" href="politique-de-confidentialite.php" target="_blank" className="footer-link">Politique de confidentialité</a></li>
-                        <li className="social"><a rel="nofollow noopener noreferrer" href="politique-retour.php" target="_blank" className="footer-link">Politique de retour</a></li>
+                        <li className="social"><Link to="Conditions_generales_de_vente"  className="footer-link">Conditions Générales de Vente</Link></li>
+                        <li className="social"> <Link to="politique_de_confidentialite" className="footer-link">Politique de confidentialité</Link> </li>
+                        <li className="social"><Link to="politique_retour" className="footer-link">Politique de retour</Link></li>
                     </ul>
                 </p>
                 <div className="rights">

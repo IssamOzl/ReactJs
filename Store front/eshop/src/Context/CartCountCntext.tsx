@@ -1,11 +1,10 @@
-import   React, { createContext, ReactNode, useState } from "react";
+import   { createContext, ReactNode, useState } from "react";
 import { UseCart } from "../Hooks/UseCart"
-import Toast from "../Components/UI/Toast/Toast";
 
  
 export const CartCountContext = createContext({
     cartCount:0,
-    setterCartCount:(parm:number)=>{} 
+    setterCartCount:(_:number)=>{} 
 })
 
 interface CartCountContextProviderPropos{

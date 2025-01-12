@@ -1,4 +1,3 @@
-import { json } from "node:stream/consumers";
 import { UseCart } from "../Hooks/UseCart";
 import { env } from "../Utils/env"
 import { order, order_product, orderFormData, shippingCity } from "./Types";
@@ -8,7 +7,7 @@ const headers = {
     "x-api-key": env.VITE_API_KEY // Adds an authorization token
 };
 
-export async function postOrderData(endpoint: string, formData: orderFormData, selectedShippingCity: shippingCity): number {
+export async function postOrderData(endpoint: string, formData: orderFormData, selectedShippingCity: shippingCity) {
     // body of request must be an order type object
     // the order object has products:order_product[]
     // must declare this array or products first order_product[], the prods are in local storage
@@ -44,7 +43,6 @@ export async function postOrderData(endpoint: string, formData: orderFormData, s
             method: "POST",
             body: JSON.stringify(order)
         })
-        console.log("TYPE OF RES",response.headers.get("Content-Type"));
         if (!response.ok) {
             // error to be logged
             const data = await response.json(); // Parse the JSON response
@@ -60,8 +58,6 @@ export async function postOrderData(endpoint: string, formData: orderFormData, s
 
 }
 export async function FetchData<T>(endpoint: string): Promise<T[]> {
-
-    //console.log("DATA FETCH CALLED",endpoint)
 
     let arrayData: T[] = []
 

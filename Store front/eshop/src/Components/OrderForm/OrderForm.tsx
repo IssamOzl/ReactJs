@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { UseCart } from "../../Hooks/UseCart"
 import Toast from "../UI/Toast/Toast"
-import { useContext, useEffect } from "react"
+import { useContext } from "react"
 import { CartCountContext } from "../../Context/CartCountCntext"
 import { useNavigate } from "react-router-dom"
 
@@ -22,7 +22,7 @@ export default function OrderForm({ setSelecedShippingCity }: OrderFormPropos) {
     const { deleteAllCartItems } = UseCart()
     const navigate = useNavigate()
 
-    const { register, reset, handleSubmit, setError, formState: { errors, isSubmitting, isSubmitSuccessful } } = useForm<orderFormData>({
+    const { register, reset, handleSubmit, setError, formState: { errors } } = useForm<orderFormData>({
         resolver: zodResolver(orderFormSchema),
     });
 

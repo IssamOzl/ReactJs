@@ -1,26 +1,22 @@
 import { useQuery } from "@tanstack/react-query"
 import { cartItem, product, productVariations } from "../../Utils/Types"
-import { FetchData, GetSiteParams } from "../../Utils/Helpers"
+import { FetchData } from "../../Utils/Helpers"
 import { env } from "../../Utils/env"
 import Alert, { alertType } from "../UI/Alert/Alert"
-import ErrorOrLoading from "../UI/Alert/ErrorOrLoading"
-import React, { ChangeEvent, memo, ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react"
+import { useErrorBoundary } from "react-error-boundary";
+import { ChangeEvent, useContext, useEffect, useRef, useState } from "react"
 import ReactImageGallery from "react-image-gallery"
 import ReductionBox from "../UI/Product/ReductionBox"
-import VisitorsSotckBox from "../UI/Product/VisitorsSotckBox"
-import PromoEndCountDown from "../UI/Product/PromoEndCountDown"
 import QantityBox from "../UI/Product/QantityBox"
 import { useInView } from "react-intersection-observer"
-import MemoizedVisitorsStockBox from "../UI/Product/VisitorsSotckBox"
-import VisitorsStockBox from "../UI/Product/VisitorsSotckBox"
 import VisitorsStockBoxMemo from "../UI/Product/VisitorsSotckBox"
 import ShippingInfoBox from "../UI/Product/ShippingInfoBox"
 import { UseCart } from "../../Hooks/UseCart"
 import { CartCountContext } from "../../Context/CartCountCntext"
 import Recommendationsmemo from "../Recommendations/Recommendations"
-import Footer from "../Footer/Footer"
-import { Navigate, useNavigate } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import Toast from "../UI/Toast/Toast"
+import ErrorOrLoading from "../UI/Alert/ErrorOrLoading"
 
 
 
@@ -39,6 +35,7 @@ const INIT_QTE = 1
 export default function ProductDetails({ slug }: ProductDetailsProps) {
 
   const navigate = useNavigate()
+  const { showBoundary } = useErrorBoundary();
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -97,13 +94,11 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
     }
   }, [inView, scrollPosition])
 
-  const { data, isLoading, error, isSuccess } = useQuery({
+  const { data, isSuccess,isLoading ,error} = useQuery({
     queryFn: () => FetchData<product>(`${env.VITE_API_URL + env.VITE_ROUTE_PRODUCT_DETAILS}?slug=${slug}`),
     queryKey: [`${slug}`]
   })
-
-  console.log("isSuccess", isSuccess);
-
+ 
   const prod: product = data as unknown as product
 
   let vars: productVariations[] = []
@@ -113,7 +108,12 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
   }
 
   //console.log(prod);
-  const imgs = prod?.images?.map(image => {
+  let imgs: {
+    original: string;
+    thumbnail: string;
+  }[] | undefined = []
+
+  imgs = prod?.images?.map(image => {
     return (
       {
         original: env.VITE_IMAGES_FOLDER + image.name_image,
@@ -223,9 +223,10 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
 
 
   }
+  
 
-   
   if (isSuccess) {
+ 
     return (
       <>
         <div
@@ -240,7 +241,7 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
             <div className="container-fliud">
               <div className="wrapper row">
                 <div className="preview col-md-6 col-sm-12 col-xs-12">
-                  {imgs?.length > 0 && <ReactImageGallery items={imgs} />}
+                  {(imgs && imgs.length > 0)   && <ReactImageGallery items={imgs} />}
                 </div>
                 <div className="details col-md-6 col-sm-12 col-xs-12">
                   <form className="product-form">
@@ -299,11 +300,8 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
         </div>
       </>
     )
-  }else{
-     
-      return(<div className="container" style={{marginTop:"15px"}}>
-         <ErrorOrLoading error={new Error("Problème inattendu ou produit non reconnu !")} isLoading={false} />
-         </div>)
+  } else {
+    return  <div className="container"><ErrorOrLoading isLoading={isLoading} error={error}/></div>
   }
 
 }

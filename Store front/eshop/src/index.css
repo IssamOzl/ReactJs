@@ -1394,6 +1394,40 @@ border: none;
     color: #FFFFFF;
     border-radius: 50%;
 } 
+.conditions-content{
+    padding-top: 30px;
+} 
+.conditions-content h2{
+    font-size: 20px;
+} 
+.loading-title{
+    padding: 11px 24px!important;
+    font-weight: bold!important;
+    background: #FBFBFB!important;
+    color: #000000!important;
+    border: 2px solid #000000!important;
+}
+ 
+.row_soutit_404{
+    text-align: center;
+    margin-top: 20px;
+}
+.row_soutit_404 h4{
+    font-weight: bold;
+}
+.row_404{
+    text-align: center;
+    background-color: hsl(21.43deg 87.5% 96.86%);
+}
+.sad_face_404{
+    font-size: 100px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+.title_404{
+    text-align: center;
+    margin-bottom: 20px;
+}
 #like_tit
 {
     text-align: center;

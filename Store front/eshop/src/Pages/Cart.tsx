@@ -3,8 +3,6 @@ import { CartListing } from "../Components/CartListing/CartListing";
 import OrderForm from "../Components/OrderForm/OrderForm";
 import { CartCountContext } from "../Context/CartCountCntext";
 
-import ErrorOrLoading from "../Components/UI/Alert/ErrorOrLoading";
-
 const cssBlock = {
     display: "block"
   }

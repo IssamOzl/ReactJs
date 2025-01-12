@@ -1,7 +1,4 @@
-import React from 'react'
 import { toast } from 'react-toastify';
-
- 
 
 export default function Toast() {
     const notify = (message : string) => toast.info(message, {

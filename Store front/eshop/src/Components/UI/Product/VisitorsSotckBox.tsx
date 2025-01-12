@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from "react";
+import { memo, useMemo } from "react";
 import PromoEndCountDown from "./PromoEndCountDown";
 
 // Define the props interface

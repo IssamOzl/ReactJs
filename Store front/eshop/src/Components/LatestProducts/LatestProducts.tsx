@@ -11,9 +11,7 @@ type LatestProductsPropos = {
 }
 
 export default function LatestProducts({category=null}:LatestProductsPropos) {
-
-  console.log("************************* cat",category);
-useEffect(() => {
+ useEffect(() => {
     window.scrollTo(0, 0)
   }, [category])
   
@@ -35,9 +33,9 @@ useEffect(() => {
     queryFn: ({ pageParam }) => FetchData<product>(`${endpoint}&offset=${pageParam}`),
     queryKey: ["prods_"+category?.category_id],
     initialPageParam: 0,
-    getNextPageParam: (lastPage, allPages, lastPageParam) => {
+    getNextPageParam: (lastPage, lastPageParam) => {
 
-      if (lastPage.length > 0) return lastPageParam + lastPage.length
+      if (lastPage.length > 0) return lastPageParam.length + lastPage.length
       else return undefined
 
     },
@@ -62,7 +60,7 @@ useEffect(() => {
                 <span>Nouveau produits</span> <p>les produits les plus recents</p>  
               </>
               :
-              <span>{category.category_name}</span>
+              <span>{category?.category_name}</span>
             }
             </center>
         </div>
@@ -77,9 +75,9 @@ useEffect(() => {
               status === "pending" || isFetchingNextPage && <h4>Chargement en cours...</h4>
             }
             {
-              status === "error" && <h4>{error.message}</h4>
+              status === "error" && <h4>{error?.message}</h4>
             }
-            <button ref={ref} onClick={() => fetchNextPage()} type="button" className="btn btn-primary my-4" disabled={!hasNextPage}>{hasNextPage? "Charger plus de produits":"Tous les produits sont chargés"}</button>
+            <button ref={ref} onClick={() => fetchNextPage()} type="button" className="btn btn-primary my-4 loading-title" disabled={!hasNextPage}>{hasNextPage? "Charger plus de produits":"Tous les produits sont chargés"}</button>
 
           </center>
         </div>
