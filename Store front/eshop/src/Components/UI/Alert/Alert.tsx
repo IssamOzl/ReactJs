@@ -18,7 +18,7 @@ export default function Alert({text,type}:alertProps) {
    // console.log(`alert alert-${alertType[type]}`)
   return (
 
-    <div className={`alert alert-${alertType[type]}`} role="alert">
+    <div className={`alert alert-${alertType[type]} alert-error`} role="alert">
         {text}
     </div>
   )

@@ -80,9 +80,6 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
   });
 
   useEffect(() => {
-    //console.log("inView check");
-    //console.log("inView " + inView);
-    //console.log("scrollY " + window.scrollY);
     if (!inView && scrollPosition > 100) {
 
       setVisible(false)
@@ -94,7 +91,7 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
 
   const { data, isSuccess,isLoading ,error} = useQuery({
     queryFn: () => FetchData<product>(`${env.VITE_API_URL + env.VITE_ROUTE_PRODUCT_DETAILS}?slug=${slug}`),
-    queryKey: [`${slug}`]
+    queryKey: [`${slug}`] 
   })
  
   const prod: product = data as unknown as product
@@ -299,7 +296,10 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
       </>
     )
   } else {
-    return  <div className="container"><ErrorOrLoading isLoading={isLoading} error={error}/></div>
+    if(!isLoading)
+      return  <ErrorOrLoading isLoading={isLoading} error={{name:"",message:"Produit non trouvé ou une erreur inconnue s'est produite !"}} showErrorBoundary={false}/>
+    else
+      return <ErrorOrLoading isLoading={isLoading} error={error} showErrorBoundary={true}/>
   }
 
 }

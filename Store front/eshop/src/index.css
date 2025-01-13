@@ -1407,7 +1407,18 @@ border: none;
     color: #000000!important;
     border: 2px solid #000000!important;
 }
- 
+.alert-error{
+    margin: 15px;
+}
+ @media (min-width: 992px) {
+  .element-to-hide {
+    display: none;
+  }
+}@media (min-width: 992px) {
+    .navbar-brands {
+      display: none;
+    }
+  }
 .row_soutit_404{
     text-align: center;
     margin-top: 20px;
