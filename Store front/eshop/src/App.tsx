@@ -8,12 +8,12 @@ const queryClient = new QueryClient();
 function App() {
 
   return (
+    <QueryClientProvider client={queryClient}>
     <CartCountContextProvider>
-      <QueryClientProvider client={queryClient}>
         <Main />
            
-       </QueryClientProvider>
     </CartCountContextProvider>
+    </QueryClientProvider>
   )
 }
 

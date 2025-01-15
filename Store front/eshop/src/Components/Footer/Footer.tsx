@@ -1,10 +1,14 @@
-import { memo, useState } from "react"
-import useLocalStorage from "../../Hooks/useLocalStorage"
+import { memo, useContext, useEffect, useState } from "react"
 import { env } from "../../Utils/env"
-import { params } from "../../Utils/Types"
 import { Link } from "react-router-dom"
+import { CartCountContext } from "../../Context/CartCountCntext";
 
 function Footer() {
+    console.log("FOOTER RENDER");
+
+    useEffect(()=>{
+
+    },[])
     const [show, setShow] = useState(false)
     const cssBlock = {
         display: "block"
@@ -12,16 +16,9 @@ function Footer() {
     const cssNone = {
         display: "none"
     }
-    let siteParams: params | undefined = undefined
-
-    const { getValue } = useLocalStorage()
-    const { isOk, value } = getValue(env.VITE_PARAMS_LS)
 
     // trying to get local storage if already stored
-    if (isOk && value != "") {
-        const params = JSON.parse(value) as params
-        siteParams = params
-    } 
+    const {siteParams} = useContext(CartCountContext)  
 
     return (
         <>

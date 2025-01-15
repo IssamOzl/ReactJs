@@ -45,7 +45,6 @@ export default function LatestProducts({category=null}:LatestProductsPropos) {
     if (inView && hasNextPage) fetchNextPage()
   }, [inView, hasNextPage])
 
-   console.log(category?.category_name +" : "+JSON.stringify(data) );
   return (
     <div className="container">
     

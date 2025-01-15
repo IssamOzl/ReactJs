@@ -4,15 +4,14 @@ import { useQuery } from "@tanstack/react-query"
 import "./NavBar.css"
 import { FetchData } from "../../Utils/Helpers";
 import { env } from "../../Utils/env";
-import { useContext } from "react";
+import { memo, useContext, useEffect } from "react";
 import ErrorOrLoading from "../UI/Alert/ErrorOrLoading";
 import { CartCountContext } from "../../Context/CartCountCntext";
 import { Link, NavLink } from "react-router-dom";
 import useLocalStorage from "../../Hooks/useLocalStorage";
 
 
-export default function NavBar() {
-
+ function NavBar() {
   const { cartCount } = useContext(CartCountContext)
   //const queryClient = useQueryClient()
   const { data, isLoading, error } = useQuery({
@@ -21,18 +20,9 @@ export default function NavBar() {
     //staleTime:4000,
     //refetchInterval:4000
   })
-
-  let siteParams: params | undefined = undefined
-
-  const { getValue } = useLocalStorage()
-  const { isOk, value } = getValue(env.VITE_PARAMS_LS)
-
-  // trying to get local storage if already stored
-  if (isOk && value != "") {
-    const params = JSON.parse(value) as params
-    siteParams = params
-  }
-
+ // trying to get local storage if already stored
+ const { siteParams } = useContext(CartCountContext)
+ 
   return (
     <>
       <Header />
@@ -88,3 +78,4 @@ export default function NavBar() {
     </>
   )
 }
+export default memo(NavBar)

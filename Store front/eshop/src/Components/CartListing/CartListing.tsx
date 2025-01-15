@@ -52,7 +52,6 @@ export function CartListing({ shippingCityId = 1, showDelete = true  }: Props) {
         const liste =
             items.map(item => {
                 param.totalPrice += item.product_base_price
-                console.log("totPrice", param.totalPrice);
                 return (<>
                     <tr>
                         <td>

@@ -12,7 +12,6 @@ export function UseCart() {
     const addToCart = (item: cartItem): boolean => {
         let isOk = true
         let exist = false
-        console.log("item To Add", item);
         try {
             let items = getAllCartItems() as unknown as cartItem[]
 
@@ -98,7 +97,6 @@ export function UseCart() {
                 break
             }
         }
-        console.log("isFreeShipping", isFreeShipping);
         return isFreeShipping
     }
 

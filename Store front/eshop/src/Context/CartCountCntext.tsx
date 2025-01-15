@@ -1,30 +1,66 @@
-import   { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useState } from "react";
 import { UseCart } from "../Hooks/UseCart"
+import { useQuery } from "@tanstack/react-query";
+import { FetchData } from "../Utils/Helpers";
+import useLocalStorage from "../Hooks/useLocalStorage";
+import { env } from "../Utils/env";
+import { params } from "../Utils/Types";
 
- 
-export const CartCountContext = createContext({
-    cartCount:0,
-    setterCartCount:(_:number)=>{} 
-})
 
-interface CartCountContextProviderPropos{
+interface CartCountContextType {
+    siteParams: params | undefined,
+    cartCount: number,
+    setterCartCount: (_: number) => void
+}
+
+const defaultCartCountContext: CartCountContextType = {
+    siteParams: undefined,
+    cartCount: 0,
+    setterCartCount: () => { }
+}
+
+export const CartCountContext = createContext<CartCountContextType>(defaultCartCountContext)
+
+interface CartCountContextProviderPropos {
     children: ReactNode;
 
 }
-export function CartCountContextProvider({children}:CartCountContextProviderPropos){
-    const {getCartItemsCount} = UseCart()
-    const [cartCount,setCartCount] = useState(getCartItemsCount())
-    
-    const setterCartCount = (newCount:number)=>{
+export function CartCountContextProvider({ children }: CartCountContextProviderPropos) {
+    const { setValue } = useLocalStorage()
+    let siteParams: params | undefined
+
+
+    const { data, isSuccess } = useQuery({
+        queryFn: () => FetchData<params>((`${env.VITE_API_URL + env.VITE_ROUTE_PARAMS}`)),
+        queryKey: [env.VITE_PARAMS_LS]
+    })
+
+    if (isSuccess) {
+        console.log("SITE PARMS LOAD");
+        const params = data as unknown as params
+        if (setValue(env.VITE_PARAMS_LS, JSON.stringify(data))) {
+            siteParams = params
+            document.documentElement.style.setProperty("--main-color", siteParams.main_color)
+            document.documentElement.style.setProperty("--main-color-dark", siteParams?.main_color_dark)
+            document.documentElement.style.setProperty("--second-color", siteParams.second_color)
+            document.documentElement.style.setProperty("--second-color-dark", siteParams?.second_color)
+            console.log("siteParams", siteParams);
+        }
+    }
+
+    const { getCartItemsCount } = UseCart()
+    const [cartCount, setCartCount] = useState(getCartItemsCount())
+
+    const setterCartCount = (newCount: number) => {
         setCartCount(newCount)
     }
 
 
-    return(
-        <CartCountContext.Provider value={{cartCount,setterCartCount}}>
+    return (
+        <CartCountContext.Provider value={{ cartCount, setterCartCount, siteParams }}>
             {children}
         </CartCountContext.Provider>
     )
-    
+
 
 }

@@ -102,7 +102,6 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
     vars = prod.variations as unknown as productVariations[]
   }
 
-  //console.log(prod);
   let imgs: {
     original: string;
     thumbnail: string;

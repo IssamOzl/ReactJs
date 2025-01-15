@@ -15,7 +15,6 @@ type alertProps = {
     type:alertType
 }
 export default function Alert({text,type}:alertProps) {
-   // console.log(`alert alert-${alertType[type]}`)
   return (
 
     <div className={`alert alert-${alertType[type]} alert-error`} role="alert">

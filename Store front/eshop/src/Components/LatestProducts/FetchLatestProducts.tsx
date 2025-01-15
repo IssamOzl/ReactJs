@@ -14,7 +14,7 @@ export async function FetchLatestProducts(): Promise<product[]>{
             headers : headers,
             method:"GET"
         })
-        .then(res=>{console.log("RES=>",res); return res.json()})
+        .then(res=>{return res.json()})
         .then(data=>products = data)
     } catch (error:unknown) {
         error instanceof Error 

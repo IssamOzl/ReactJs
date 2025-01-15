@@ -58,7 +58,6 @@ export async function postOrderData(endpoint: string, formData: orderFormData, s
 
 }
 export async function FetchData<T>(endpoint: string): Promise<T[]> {
-    console.log("endpoint",endpoint);
     let arrayData: T[] = []
 
     const res = await fetch(endpoint, {
