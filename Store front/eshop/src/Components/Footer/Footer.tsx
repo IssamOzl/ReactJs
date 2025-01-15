@@ -19,7 +19,7 @@ function Footer() {
 
     // trying to get local storage if already stored
     const {siteParams} = useContext(CartCountContext)  
-
+    console.log("siteParams from footer",siteParams?.logo_link);
     return (
         <>
             <div className="col-contact-us" id="cont">

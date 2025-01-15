@@ -26,27 +26,37 @@ interface CartCountContextProviderPropos {
 
 }
 export function CartCountContextProvider({ children }: CartCountContextProviderPropos) {
-    const { setValue } = useLocalStorage()
+    const { getValue, setValue } = useLocalStorage()
     let siteParams: params | undefined
 
+ 
 
-    const { data, isSuccess } = useQuery({
-        queryFn: () => FetchData<params>((`${env.VITE_API_URL + env.VITE_ROUTE_PARAMS}`)),
-        queryKey: [env.VITE_PARAMS_LS]
-    })
-
-    if (isSuccess) {
+    const { isOk, value } = getValue(env.VITE_PARAMS_LS)
+    console.log("{ isOk, value } ",{ isOk, value } );
+    if (!isOk || value === "") {
         console.log("SITE PARMS LOAD");
-        const params = data as unknown as params
-        if (setValue(env.VITE_PARAMS_LS, JSON.stringify(data))) {
-            siteParams = params
-            document.documentElement.style.setProperty("--main-color", siteParams.main_color)
-            document.documentElement.style.setProperty("--main-color-dark", siteParams?.main_color_dark)
-            document.documentElement.style.setProperty("--second-color", siteParams.second_color)
-            document.documentElement.style.setProperty("--second-color-dark", siteParams?.second_color)
-            console.log("siteParams", siteParams);
+        const { data, isSuccess } = useQuery({
+            queryFn: () => FetchData<params>((`${env.VITE_API_URL + env.VITE_ROUTE_PARAMS}`)),
+            queryKey: [env.VITE_PARAMS_LS]
+        })
+
+        if (isSuccess) {
+            const params = data as unknown as params
+            if (setValue(env.VITE_PARAMS_LS, JSON.stringify(data))) {
+                siteParams = params
+                document.documentElement.style.setProperty("--main-color", siteParams.main_color)
+                document.documentElement.style.setProperty("--main-color-dark", siteParams?.main_color_dark)
+                document.documentElement.style.setProperty("--second-color", siteParams.second_color)
+                document.documentElement.style.setProperty("--second-color-dark", siteParams?.second_color)
+                console.log("siteParams", siteParams);
+            }
         }
+    }else{
+ 
+        siteParams = JSON.parse(value) as params 
+        console.log("SITE PARMS from ls",siteParams);
     }
+
 
     const { getCartItemsCount } = UseCart()
     const [cartCount, setCartCount] = useState(getCartItemsCount())
