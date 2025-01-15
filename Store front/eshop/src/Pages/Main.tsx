@@ -6,8 +6,7 @@ import Category from "./Category"
 import Product from "./Product"
 import Cart from "./Cart"
 import Thanks from "./Thanks"
-import ErrorOrLoading from "../Components/UI/Alert/ErrorOrLoading"
-
+import Alert, { alertType } from "../Components/UI/Alert/Alert"
 const Conditions_generales_de_vente = lazy(() => import("./Conditions_generales_de_vente"))
 const Politique_de_confidentialite = lazy(() => import("./Politique_de_confidentialite"))
 const Politique_retour = lazy(() => import("./Politique_retour"))
@@ -33,9 +32,7 @@ export default function Main() {
 
     
 
-    <Suspense fallback={<ErrorOrLoading isLoading={true} error={null} />}>
-      
-  
+    <Suspense fallback={<Alert text="Chargement en cours ..." type={alertType.primary} />}>
         <RouterProvider router={router} />
       </Suspense >
   )

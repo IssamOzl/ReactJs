@@ -1,25 +1,16 @@
 import { Link } from "react-router-dom"
-import useLocalStorage from "../Hooks/useLocalStorage"
 import { env } from "../Utils/env"
-import { params } from "../Utils/Types"
-import { useEffect } from "react"
+import { useContext, useEffect } from "react"
+import { CartCountContext } from "../Context/CartCountCntext"
 
 function Politique_de_confidentialite() {
-
-    const defaultSiteName = env.VITE_DEFAULT_SITE_NAME
-    let siteName = defaultSiteName
-
-    const { getValue } = useLocalStorage()
-    const { isOk, value } = getValue(env.VITE_PARAMS_LS)
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
 
-    // trying to get local storage if already stored
-    if (isOk && value != "") {
-        const params = JSON.parse(value) as params
-        siteName = params.site_name + " "
-    }
+    const defaultSiteName = env.VITE_DEFAULT_SITE_NAME
+    const { siteParams } = useContext(CartCountContext)
+    const siteName = siteParams?.site_name || defaultSiteName
 
     return (
         <div className="container">

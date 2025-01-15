@@ -5,15 +5,15 @@ import { params } from "../Utils/Types"
 
 export default function Politique_retour() {
 
+    useEffect(() => {
+        window.scrollTo(0, 0)
+    }, [])
     const defaultSiteName = env.VITE_DEFAULT_SITE_NAME
     let siteName = defaultSiteName
 
     const { getValue } = useLocalStorage()
     const { isOk, value } = getValue(env.VITE_PARAMS_LS)
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
 
     // trying to get local storage if already stored
     if (isOk && value != "") {

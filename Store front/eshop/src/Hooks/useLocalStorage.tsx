@@ -7,6 +7,7 @@ export default function useLocalStorage() {
 
         try {
             localStorage.setItem(key, value)
+            
         } catch (error) {
             isOk = false
             console.log(error);

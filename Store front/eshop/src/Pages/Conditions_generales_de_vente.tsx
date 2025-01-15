@@ -1,24 +1,18 @@
-import { useEffect } from "react"
-import useLocalStorage from "../Hooks/useLocalStorage"
 import { env } from "../Utils/env"
-import { params } from "../Utils/Types"
+import { useContext, useEffect } from "react"
+import { CartCountContext } from "../Context/CartCountCntext"
 
-export default function Conditions_generales_de_vente() {
-  const defaultSiteName = env.VITE_DEFAULT_SITE_NAME
-  let siteName = defaultSiteName
-
-  const { getValue } = useLocalStorage()
-  const { isOk, value } = getValue(env.VITE_PARAMS_LS)
+function Conditions_generales_de_vente() {
+  
+      const defaultSiteName = env.VITE_DEFAULT_SITE_NAME
+      const { siteParams } = useContext(CartCountContext)
+      console.log("siteParams Conditions_generales_de_vente",siteParams);
+      const siteName = siteParams?.site_name || defaultSiteName
 
     useEffect(() => {
         window.scrollTo(0, 0)
     }, [])
-
-  // trying to get local storage if already stored
-  if (isOk && value != "") {
-    const params = JSON.parse(value) as params
-    siteName = params.site_name+" "
-  }
+ 
 
   return (
     <>
@@ -91,3 +85,5 @@ export default function Conditions_generales_de_vente() {
     </>
   )
 }
+
+export default Conditions_generales_de_vente
