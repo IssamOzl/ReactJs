@@ -11,7 +11,7 @@ import { Link, NavLink } from "react-router-dom";
 import useLocalStorage from "../../Hooks/useLocalStorage";
 
 
- function NavBar() {
+function NavBar() {
   const { cartCount } = useContext(CartCountContext)
   //const queryClient = useQueryClient()
   const { data, isLoading, error } = useQuery({
@@ -20,9 +20,9 @@ import useLocalStorage from "../../Hooks/useLocalStorage";
     //staleTime:4000,
     //refetchInterval:4000
   })
- // trying to get local storage if already stored
- const { siteParams } = useContext(CartCountContext)
- 
+  // trying to get local storage if already stored
+  const { siteParams } = useContext(CartCountContext)
+
   return (
     <>
       <Header />
@@ -49,9 +49,9 @@ import useLocalStorage from "../../Hooks/useLocalStorage";
           {
             siteParams
             &&
-            <a className="navbar-brands">
+            <Link className="navbar-brands" to="/">
               <img src={env.VITE_IMAGES_FOLDER + siteParams?.logo_link} className="logo img-responsive" />
-            </a>
+            </Link>
           }
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span className="navbar-toggler-icon"></span>
