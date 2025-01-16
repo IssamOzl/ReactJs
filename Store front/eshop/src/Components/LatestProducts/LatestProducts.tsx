@@ -5,6 +5,8 @@ import { FetchData } from "../../Utils/Helpers"
 import { env } from "../../Utils/env"
 import { useInView } from "react-intersection-observer"
 import { useEffect } from "react"  
+import Alert, { alertType } from "../UI/Alert/Alert"
+import ErrorOrLoading from "../UI/Alert/ErrorOrLoading"
 
 type LatestProductsPropos = {
   category?:categories | null
@@ -33,17 +35,20 @@ export default function LatestProducts({category=null}:LatestProductsPropos) {
     queryFn: ({ pageParam }) => FetchData<product>(`${endpoint}&offset=${pageParam}`),
     queryKey: ["prods_"+category?.category_id],
     initialPageParam: 0,
-    getNextPageParam: (lastPage, lastPageParam) => {
+    getNextPageParam: (lastPage, lastPageParam, allPages) => {
+      console.log("lastPage",lastPage);
+      console.log("lastPageParam",lastPageParam);
+      console.log("allPages",allPages);
+      if (lastPage.length >=12) return lastPageParam.length  * lastPage.length +1
 
-      if (lastPage.length > 0) return lastPageParam.length + lastPage.length
       else return undefined
 
     },
   })
 
-  useEffect(() => {
-    if (inView && hasNextPage) fetchNextPage()
-  }, [inView, hasNextPage])
+  // useEffect(() => {
+  //   if (inView && hasNextPage) fetchNextPage()
+  // }, [inView, hasNextPage])
 
   return (
     <div className="container">
@@ -71,12 +76,12 @@ export default function LatestProducts({category=null}:LatestProductsPropos) {
         <div className="col-md-12 justify-content-md-center">
           <center>
             {
-              status === "pending" || isFetchingNextPage && <h4>Chargement en cours...</h4>
+              status === "pending" || isFetchingNextPage && <ErrorOrLoading isLoading={true} error={null} showErrorBoundary={false}/>
             }
             {
-              status === "error" && <h4>{error?.message}</h4>
+              status === "error" &&   <ErrorOrLoading isLoading={false} error={error} showErrorBoundary={true}/>
             }
-            <button ref={ref} onClick={() => fetchNextPage()} type="button" className="btn btn-primary my-4 loading-title" disabled={!hasNextPage}>{hasNextPage? "Charger plus de produits":"Tous les produits sont chargés"}</button>
+            <button  ref={ref} onClick={() => fetchNextPage()} type="button" className="btn btn-primary my-4 loading-title" disabled={!hasNextPage || isFetchingNextPage }>{hasNextPage? "Charger plus de produits":"Tous les produits sont chargés"}</button>
 
           </center>
         </div>
