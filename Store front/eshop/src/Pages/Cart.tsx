@@ -15,9 +15,6 @@ export default function Cart() {
 
    const {cartCount} = useContext(CartCountContext)
 
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
 
     
     const [selecedShippingCity,setSelecedShippingCity] = useState(1)

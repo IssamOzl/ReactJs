@@ -8,12 +8,6 @@ function Conditions_generales_de_vente() {
       const { siteParams } = useContext(CartCountContext)
       console.log("siteParams Conditions_generales_de_vente",siteParams);
       const siteName = siteParams?.site_name || defaultSiteName
-
-    useEffect(() => {
-        window.scrollTo(0, 0)
-    }, [])
- 
-
   return (
     <>
       <div className="container">

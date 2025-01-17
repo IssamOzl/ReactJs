@@ -35,10 +35,6 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
 
   const navigate = useNavigate()
 
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [slug])
-
   const [visible, setVisible] = useState(false)
   const [scrollPosition, setScrollPosition] = useState(0)
 
@@ -104,14 +100,14 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
 
   let imgs: {
     original: string;
-    thumbnail: string;
+    thumbnail: string; 
   }[] | undefined = []
 
   imgs = prod?.images?.map(image => {
     return (
       {
         original: env.VITE_IMAGES_FOLDER + image.name_image,
-        thumbnail: env.VITE_IMAGES_FOLDER + image.name_image
+        thumbnail: env.VITE_IMAGES_FOLDER + image.name_image, 
       }
     )
   })
@@ -235,7 +231,7 @@ export default function ProductDetails({ slug }: ProductDetailsProps) {
             <div className="container-fliud">
               <div className="wrapper row">
                 <div className="preview col-md-6 col-sm-12 col-xs-12">
-                  {(imgs && imgs.length > 0)   && <ReactImageGallery items={imgs} />}
+                  {(imgs && imgs.length > 0)   && <ReactImageGallery lazyLoad={true} items={imgs} />}
                 </div>
                 <div className="details col-md-6 col-sm-12 col-xs-12">
                   <form className="product-form">

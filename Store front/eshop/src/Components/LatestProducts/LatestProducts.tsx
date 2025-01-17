@@ -5,7 +5,7 @@ import { FetchData } from "../../Utils/Helpers"
 import { env } from "../../Utils/env"
 import { useInView } from "react-intersection-observer"
 import { useEffect } from "react"  
-import Alert, { alertType } from "../UI/Alert/Alert"
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ErrorOrLoading from "../UI/Alert/ErrorOrLoading"
 
 type LatestProductsPropos = {
@@ -13,9 +13,6 @@ type LatestProductsPropos = {
 }
 
 export default function LatestProducts({category=null}:LatestProductsPropos) {
- useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [category])
   
   let endpoint  =  env.VITE_API_URL
   if(category != null){
@@ -70,7 +67,7 @@ export default function LatestProducts({category=null}:LatestProductsPropos) {
         </div>
         {
           
-          data?.pages.map(products => products.map(product => <ProductCard key={product.product_id} product={product} />))
+          data?.pages.map(products => products.map(product =><ProductCard key={product.product_id} product={product} />))
 
         }
         <div className="col-md-12 justify-content-md-center">

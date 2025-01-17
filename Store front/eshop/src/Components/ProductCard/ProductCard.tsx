@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom"
 import { env } from "../../Utils/env"
 import { product } from "../../Utils/Types"
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+import 'react-lazy-load-image-component/src/effects/black-and-white.css';
 
 type ProductCardProps =
     {
@@ -16,9 +18,15 @@ export default function ProductCard({ product }: ProductCardProps) {
                 <Link to={`/product/${product?.slug}`}>
                     <div className="my-list">
                         {(product.old_price > 0 && product.product_base_price != product.old_price)&& <span className="remise">{Math.trunc(reduction*-1) }%OFF</span>}
-
-                        <img src={ env.VITE_IMAGES_FOLDER+ product?.thumbnail} alt={product.product_name} />
-                        <h3>{product.product_name}</h3>
+                        <LazyLoadImage 
+                        placeholder={<h1>test..</h1>}
+                        height="auto"
+                        width="auto"
+                            src={ env.VITE_IMAGES_FOLDER+ product?.thumbnail}
+                            effect="blur"
+                            placeholderSrc={ env.VITE_IMAGES_FOLDER+ "placeholder.png"}/>
+                            
+                         <h3>{product.product_name}</h3>
 
                         <div className="price_div">
                             <center>
